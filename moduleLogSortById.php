@@ -15,6 +15,7 @@ $output = <<<HTML
 <script>
 /* Hook: moduleLogSortById */
 jQuery(document).ready(function($) {
+    if ( $('#tblModuleLog tbody tr').length < 2 ) return;
 	//Add ID column header
 	$('#tblModuleLog thead tr').prepend('<th width="20">ID</th>');
 	//Add ID column values
