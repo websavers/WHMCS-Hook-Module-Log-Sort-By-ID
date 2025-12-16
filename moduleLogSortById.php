@@ -9,10 +9,11 @@ if (!defined('WHMCS')) {
  */
 add_hook('AdminAreaFooterOutput', 100, function($vars){
 
-	if ($vars['filename'] == 'logs/module-log'):
+	if ($vars['pagetitle'] == 'System Module Debug Log'):
 
 $output = <<<HTML
 <script>
+/* Hook: moduleLogSortById */
 jQuery(document).ready(function($) {
 	//Add ID column header
 	$('#tblModuleLog thead tr').prepend('<th width="20">ID</th>');
@@ -22,10 +23,14 @@ jQuery(document).ready(function($) {
 		id = href.split('/').pop();
 		$(this).prepend('<td>' + id + '</td>');
 	});
-	new DataTable('#tblModuleLog', {
-    	order: [[0, 'asc']]
-	});
+    sortTable($('#tblModuleLog'));
 });
+function sortTable(table) {
+    tbody = table.find('tbody');
+    tbody.find('tr').sort(function(a, b) {
+        return $('td:first', a).text().localeCompare($('td:first', b).text(), undefined, {'numeric': true});
+    }).appendTo(tbody);
+}
 </script>
 HTML;
 
