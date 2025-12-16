@@ -23,14 +23,12 @@ jQuery(document).ready(function($) {
 		id = href.split('/').pop();
 		$(this).prepend('<td>' + id + '</td>');
 	});
-    sortTable($('#tblModuleLog'));
-});
-function sortTable(table) {
-    tbody = table.find('tbody');
+    //Sort by first column
+    tbody = $('#tblModuleLog').find('tbody');
     tbody.find('tr').sort(function(a, b) {
         return $('td:first', a).text().localeCompare($('td:first', b).text(), undefined, {'numeric': true});
     }).appendTo(tbody);
-}
+});
 </script>
 HTML;
 
